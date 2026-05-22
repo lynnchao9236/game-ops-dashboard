@@ -1,0 +1,10 @@
+.env
+*.log
+*.log.gz
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.bak
+*.before_rollback
+nohup.out

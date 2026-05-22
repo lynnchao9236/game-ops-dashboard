@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOL管理系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- PC端侧边栏导航 -->
+    <aside class="sidebar-nav">
+        <div class="sidebar-logo">
+            <span class="brand-icon">⭐</span>
+            <span class="logo-text">KOL管理系统</span>
+        </div>
+        <div class="sidebar-nav-items">
+            <button class="sidebar-tab active" data-page="dashboard">
+                <span class="nav-emoji">📊</span>
+                <span>数据概览</span>
+            </button>
+            <button class="sidebar-tab" data-page="kol-list">
+                <span class="nav-emoji">🌟</span>
+                <span>KOL列表</span>
+            </button>
+            <button class="sidebar-tab" data-page="search">
+                <span class="nav-emoji">🔍</span>
+                <span>智能推荐</span>
+            </button>
+            <button class="sidebar-tab" data-page="import">
+                <span class="nav-emoji">📤</span>
+                <span>数据导入</span>
+            </button>
+            <button class="sidebar-tab" data-page="cooperation">
+                <span class="nav-emoji">📋</span>
+                <span>案例查看</span>
+            </button>
+            <button class="sidebar-tab" data-page="header-mapping">
+                <span class="nav-emoji">🔤</span>
+                <span>表头对照</span>
+            </button>
+        </div>
+        <div class="sidebar-footer">
+            <a href="/" class="sidebar-home-btn">← 返回首页</a>
+        </div>
+    </aside>
+
+    <!-- 顶部导航栏 -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="flex items-center gap-3">
+                <!-- 移动端 Logo（仅移动端显示） -->
+                <div class="mobile-logo-area">
+                    <div class="logo-icon">
+                        <i class="ri-star-smile-line text-sm text-white"></i>
+                    </div>
+                    <span class="logo-text">KOL管理系统</span>
+                </div>
+                <span id="page-title" class="text-lg font-bold text-gray-800">数据概览</span>
+            </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main id="main-content" class="main-content">
+        <div id="page-container" class="page-container"></div>
+    </main>
+
+    <!-- 移动端底部导航栏 -->
+    <nav class="mobile-bottom-nav">
+        <button class="mobile-nav-item active" data-page="dashboard">
+            <i class="ri-dashboard-3-line"></i>
+            <span>概览</span>
+        </button>
+        <button class="mobile-nav-item" data-page="kol-list">
+            <i class="ri-user-star-line"></i>
+            <span>KOL列表</span>
+        </button>
+        <button class="mobile-nav-item" data-page="search">
+            <i class="ri-search-eye-line"></i>
+            <span>推荐</span>
+        </button>
+        <button class="mobile-nav-item" data-page="import">
+            <i class="ri-upload-cloud-2-line"></i>
+            <span>导入</span>
+        </button>
+        <button class="mobile-nav-item" data-page="more-menu" id="mobile-more-btn">
+            <i class="ri-more-2-fill"></i>
+            <span>更多</span>
+        </button>
+    </nav>
+
+    <!-- 移动端"更多"抽屉菜单 -->
+    <div id="mobile-more-drawer" class="mobile-more-drawer hidden">
+        <div class="mobile-more-backdrop"></div>
+        <div class="mobile-more-sheet">
+            <div class="mobile-more-handle"></div>
+            <div class="mobile-more-items">
+                <button class="mobile-more-item" data-page="cooperation">
+                    <div class="mobile-more-icon bg-purple-100">
+                        <span class="nav-emoji">📋</span>
+                    </div>
+                    <span>案例查看</span>
+                    <i class="ri-arrow-right-s-line text-gray-400 ml-auto"></i>
+                </button>
+                <button class="mobile-more-item" data-page="header-mapping">
+                    <div class="mobile-more-icon bg-blue-100">
+                        <span class="nav-emoji">🔤</span>
+                    </div>
+                    <span>表头对照</span>
+                    <i class="ri-arrow-right-s-line text-gray-400 ml-auto"></i>
+                </button>
+            </div>
+            <div class="mobile-more-footer">
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- KOL详情弹窗 -->
+    <div id="kol-detail-modal" class="modal-overlay hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+            <div class="modal-sheet">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
+                    <h3 class="text-lg font-bold text-gray-800">KOL详情</h3>
+                    <button id="close-detail-modal" class="p-2 hover:bg-gray-100 rounded-xl transition-colors">
+                        <i class="ri-close-line text-xl text-gray-500"></i>
+                    </button>
+                </div>
+                <div id="kol-detail-content" class="p-6 overflow-y-auto flex-1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast提示 -->
+    <div id="toast-container" class="fixed top-20 right-6 z-[100] space-y-2 pointer-events-none" style="max-width: 380px;"></div>
+
+    <script type="module" src="main.js?v=20260522"></script>
+</body>
+</html>

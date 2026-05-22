@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>策略中心 - 海外游戏平台运营策略</title>
+    <link rel="stylesheet" href="/static/style.css?v=20260522">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============ PC端侧边栏 ============ -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <span class="brand-icon">🎮</span>
+        <span class="brand-text">策略中心</span>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav">
+        <div class="sidebar-nav-item active" data-page="home">
+            <span class="nav-emoji">🏠</span> <span>策略预览</span>
+        </div>
+        <div class="sidebar-nav-item" data-page="ask">
+            <span class="nav-emoji">💬</span> <span>智能提问</span>
+        </div>
+        <div class="sidebar-nav-item" data-page="upload">
+            <span class="nav-emoji">📤</span> <span>上传文档</span>
+        </div>
+        <div class="sidebar-nav-item" data-page="docs">
+            <span class="nav-emoji">📁</span> <span>文档管理</span>
+        </div>
+        <div class="sidebar-nav-item" data-page="logs">
+            <span class="nav-emoji">🕐</span> <span>更新日志</span>
+        </div>
+    </nav>
+    <div class="sidebar-footer">
+        <a href="/" class="sidebar-home-btn">← 返回首页</a>
+    </div>
+</aside>
+
+<!-- ============ 移动端顶部导航 ============ -->
+<header class="mobile-header" id="mobile-header">
+    <div class="nav-back hidden" id="nav-back"><i class="ri-arrow-left-s-line"></i></div>
+    <div class="nav-title" id="nav-title">策略中心</div>
+    <div class="nav-actions">
+        <button class="nav-btn" id="nav-refresh" title="刷新"><i class="ri-refresh-line"></i></button>
+    </div>
+</header>
+
+<!-- ============ 主内容区 ============ -->
+<main class="main-content" id="main-content">
+    <!-- PC端顶部工具栏 -->
+    <div class="pc-topbar" id="pc-topbar">
+        <div class="pc-breadcrumb" id="breadcrumb">
+            <span class="bc-item active">策略预览</span>
+        </div>
+        <button class="pc-refresh-btn" id="pc-refresh">
+            <i class="ri-refresh-line"></i> 刷新数据
+        </button>
+    </div>
+
+    <!-- ===== 首页 ===== -->
+    <div class="page active" id="page-home">
+        <div class="hero-card">
+            <div class="hero-gradient"></div>
+            <div class="hero-content">
+                <div class="hero-main-title">🎮 海外游戏平台运营策略</div>
+                <div class="hero-subtitle">Steam · Epic Games · Xbox · PlayStation</div>
+                <div class="hero-stats" id="hero-stats"></div>
+            </div>
+        </div>
+        <div class="home-grid">
+            <div>
+                <div class="section-title">🎮 选择平台查看策略</div>
+                <div class="platform-grid" id="platform-grid"></div>
+                <div class="section-title">⚡ 快捷操作</div>
+                <div class="quick-actions" id="quick-actions">
+                    <div class="quick-action-item" data-action="ask">
+                        <div class="qa-icon" style="background:#fce4ec">💬</div>
+                        <span>智能提问</span>
+                    </div>
+                    <div class="quick-action-item" data-action="upload">
+                        <div class="qa-icon" style="background:#e3f2fd">📤</div>
+                        <span>上传文档</span>
+                    </div>
+                    <div class="quick-action-item" data-action="text-input">
+                        <div class="qa-icon" style="background:#e8f5e9">✏️</div>
+                        <span>录入信息</span>
+                    </div>
+                    <div class="quick-action-item" data-action="logs">
+                        <div class="qa-icon" style="background:#fff3e0">📋</div>
+                        <span>更新日志</span>
+                    </div>
+                    <div class="quick-action-item" data-action="docs">
+                        <div class="qa-icon" style="background:#f3e5f5">📁</div>
+                        <span>文档管理</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="section-title">🕐 最近更新</div>
+                <div class="recent-logs" id="recent-logs"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 平台详情页 ===== -->
+    <div class="page" id="page-platform">
+        <div class="platform-header" id="platform-header"></div>
+        <div class="tab-bar" id="tab-bar">
+            <div class="tab-item active" data-tab="promotion">
+                <i class="ri-megaphone-line"></i> 推广资源
+            </div>
+            <div class="tab-item" data-tab="operation">
+                <i class="ri-settings-3-line"></i> 运营功能
+            </div>
+            <div class="tab-item" data-tab="technology">
+                <i class="ri-code-s-slash-line"></i> 技术合作
+            </div>
+        </div>
+        <div class="strategy-content" id="strategy-content"></div>
+    </div>
+
+    <!-- ===== 上传页面 ===== -->
+    <div class="page" id="page-upload">
+        <div class="upload-container">
+            <div class="upload-tabs">
+                <div class="upload-tab active" data-tab="text">
+                    <i class="ri-edit-2-line"></i> 手动输入
+                </div>
+                <div class="upload-tab" data-tab="file">
+                    <i class="ri-file-upload-line"></i> 文件上传
+                </div>
+                <div class="upload-tab" data-tab="url">
+                    <i class="ri-link"></i> 粘贴网址
+                </div>
+            </div>
+            <!-- 手动输入 -->
+            <div class="upload-section active" id="upload-text-section">
+                <div class="upload-form-grid">
+                    <div class="form-group">
+                        <label>关联平台</label>
+                        <select class="form-select" id="text-platform">
+                            <option value="">通用（不关联平台）</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>文档类型</label>
+                        <select class="form-select" id="text-doc-type">
+                            <option value="policy">平台政策</option>
+                            <option value="resource">推广资源规则</option>
+                            <option value="project">项目效果数据</option>
+                            <option value="report">内部项目报告</option>
+                            <option value="other">其他信息</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group game-name-group hidden" id="text-game-group">
+                    <label><i class="ri-gamepad-line"></i> 关联游戏名</label>
+                    <input class="form-input" id="text-game-name" placeholder="请输入游戏名称">
+                </div>
+                <div class="form-group">
+                    <label>标题</label>
+                    <input class="form-input" id="text-title" placeholder="例如：Steam 2026春季更新政策">
+                </div>
+                <div class="form-group">
+                    <label>内容</label>
+                    <textarea class="form-textarea" id="text-content" rows="8" placeholder="粘贴或输入政策/信息内容..."></textarea>
+                </div>
+                <button class="btn-submit" id="btn-submit-text">
+                    <i class="ri-save-line"></i> 保存信息
+                </button>
+            </div>
+            <!-- 文件上传 -->
+            <div class="upload-section" id="upload-file-section">
+                <div class="url-input-tip">
+                    <i class="ri-information-line"></i>
+                    <span>支持上传 PDF、PPTX、DOCX、XLSX、TXT、MD、HTML 等多种格式文档，系统将自动解析文件内容</span>
+                </div>
+                <div class="upload-form-grid">
+                    <div class="form-group">
+                        <label>关联平台</label>
+                        <select class="form-select" id="file-platform">
+                            <option value="">通用（不关联平台）</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>文档类型</label>
+                        <select class="form-select" id="file-doc-type">
+                            <option value="policy">平台政策</option>
+                            <option value="resource">推广资源规则</option>
+                            <option value="project">项目效果数据</option>
+                            <option value="report">内部项目报告</option>
+                            <option value="other">其他信息</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group game-name-group hidden" id="file-game-group">
+                    <label><i class="ri-gamepad-line"></i> 关联游戏名</label>
+                    <input class="form-input" id="file-game-name" placeholder="请输入游戏名称">
+                </div>
+                <div class="file-drop-zone" id="file-drop-zone">
+                    <div class="file-drop-icon">
+                        <i class="ri-upload-cloud-2-line"></i>
+                    </div>
+                    <div class="file-drop-text">拖拽文件到此处，或点击选择文件</div>
+                    <div class="file-drop-hint">支持 PDF、PPTX、DOCX、XLSX、TXT、MD、HTML、RTF 等格式</div>
+                    <input type="file" id="file-input" accept=".pdf,.docx,.doc,.pptx,.ppt,.xlsx,.xls,.csv,.txt,.md,.markdown,.html,.htm,.rtf" style="display:none">
+                </div>
+                <div class="file-preview hidden" id="file-preview">
+                    <div class="file-preview-info">
+                        <i class="ri-file-line file-preview-icon" id="file-preview-icon"></i>
+                        <div class="file-preview-detail">
+                            <div class="file-preview-name" id="file-preview-name"></div>
+                            <div class="file-preview-size" id="file-preview-size"></div>
+                        </div>
+                        <button class="file-preview-remove" id="file-preview-remove" title="移除文件">
+                            <i class="ri-close-circle-line"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn-submit" id="btn-submit-file" disabled>
+                    <i class="ri-upload-cloud-line"></i> 上传文件
+                </button>
+            </div>
+            <!-- URL抓取 -->
+            <div class="upload-section" id="upload-url-section">
+                <div class="url-input-tip">
+                    <i class="ri-information-line"></i>
+                    <span>粘贴网页链接，系统将自动抓取页面内容并存储为策略参考文档</span>
+                </div>
+                <div class="upload-form-grid">
+                    <div class="form-group">
+                        <label>关联平台</label>
+                        <select class="form-select" id="url-platform">
+                            <option value="">通用（不关联平台）</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>文档类型</label>
+                        <select class="form-select" id="url-doc-type">
+                            <option value="policy">平台政策</option>
+                            <option value="resource">推广资源规则</option>
+                            <option value="project">项目效果数据</option>
+                            <option value="report">内部项目报告</option>
+                            <option value="other">其他信息</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group game-name-group hidden" id="url-game-group">
+                    <label><i class="ri-gamepad-line"></i> 关联游戏名</label>
+                    <input class="form-input" id="url-game-name" placeholder="请输入游戏名称">
+                </div>
+                <div class="form-group">
+                    <label>网页地址</label>
+                    <div class="url-input-wrapper">
+                        <i class="ri-link"></i>
+                        <input class="form-input url-field" id="url-input" placeholder="https://store.steampowered.com/..." type="url">
+                        <button class="btn-paste" id="btn-paste-url" title="粘贴"><i class="ri-clipboard-line"></i></button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>备注标题 <span class="label-hint">（可选）</span></label>
+                    <input class="form-input" id="url-title" placeholder="可选：自定义文档标题">
+                </div>
+                <button class="btn-submit" id="btn-submit-url">
+                    <i class="ri-download-line"></i> 抓取并保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 文档管理 ===== -->
+    <div class="page" id="page-docs">
+        <div class="docs-filter" id="docs-filter">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="pending">待处理</button>
+            <button class="filter-btn" data-filter="applied">已应用</button>
+            <button class="filter-btn filter-btn-report" data-filter="report">
+                <i class="ri-file-chart-line"></i> 报告
+            </button>
+            <button class="reset-report-btn hidden" id="btn-reset-report">
+                <i class="ri-refresh-line"></i> 重置报告状态
+            </button>
+        </div>
+        <div class="docs-list" id="docs-list"></div>
+    </div>
+
+    <!-- ===== 更新日志 ===== -->
+    <div class="page" id="page-logs">
+        <div class="logs-list" id="logs-list"></div>
+    </div>
+
+    <!-- ===== 智能提问 ===== -->
+    <div class="page" id="page-ask">
+        <div class="ask-container">
+            <div class="ask-hero" id="ask-hero">
+                <div class="ask-hero-icon">🤖</div>
+                <div class="ask-hero-title">策略智能问答</div>
+                <div class="ask-hero-desc">基于全平台策略数据，为您智能检索和分析</div>
+            </div>
+            <div class="ask-quick-tags" id="ask-quick-tags">
+                <span class="ask-tag" data-q="Steam 2026年有哪些大促活动？">Steam大促日历</span>
+                <span class="ask-tag" data-q="PlayStation黑五折扣力度多少？">PS黑五折扣</span>
+                <span class="ask-tag" data-q="Xbox Game Pass入选条件是什么？">GP入选条件</span>
+                <span class="ask-tag" data-q="Epic Mega Sale什么时候开始？">Epic大促时间</span>
+                <span class="ask-tag" data-q="Steam Deck适配需要做什么？">Deck适配要求</span>
+                <span class="ask-tag" data-q="各平台分成比例是多少？">分成比例对比</span>
+            </div>
+            <div class="ask-chat-area" id="ask-chat-area"></div>
+            <div class="ask-input-bar">
+                <div class="ask-input-wrapper">
+                    <input class="ask-input-field" id="ask-input" placeholder="输入问题，如：Steam夏促打几折？" maxlength="200">
+                    <button class="ask-send-btn" id="ask-send" title="发送">
+                        <i class="ri-send-plane-fill"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+<!-- ============ 移动端底部TabBar ============ -->
+<nav class="mobile-tabbar" id="mobile-tabbar">
+    <div class="tabbar-item active" data-page="home">
+        <i class="ri-home-4-line"></i>
+        <span>首页</span>
+    </div>
+    <div class="tabbar-item" data-page="ask">
+        <i class="ri-chat-3-line"></i>
+        <span>提问</span>
+    </div>
+    <div class="tabbar-item" data-page="upload">
+        <i class="ri-upload-cloud-line"></i>
+        <span>上传</span>
+    </div>
+    <div class="tabbar-item" data-page="docs">
+        <i class="ri-folder-line"></i>
+        <span>文档</span>
+    </div>
+    <div class="tabbar-item" data-page="logs">
+        <i class="ri-history-line"></i>
+        <span>日志</span>
+    </div>
+</nav>
+
+<!-- ============ 全局弹窗容器 ============ -->
+<div class="toast hidden" id="toast"></div>
+<div class="loading-mask hidden" id="loading-mask">
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p id="loading-text">加载中...</p>
+    </div>
+</div>
+<div class="modal hidden" id="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <div class="modal-header" id="modal-title"></div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-footer">
+            <button class="modal-btn cancel" id="modal-cancel">取消</button>
+            <button class="modal-btn primary" id="modal-confirm">确认</button>
+        </div>
+    </div>
+</div>
+
+<!-- 报告确认弹窗 -->
+<div class="modal hidden" id="report-confirm-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content report-confirm-panel">
+        <div class="report-confirm-header">
+            <div class="report-confirm-title"><i class="ri-file-chart-line"></i> 确认报告内容</div>
+            <button class="report-confirm-close" id="report-confirm-close"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="report-confirm-body">
+            <div class="report-confirm-hint"><i class="ri-information-line"></i> <span>系统已自动解析报告内容，请确认或修改以下信息</span></div>
+            <div class="report-section-label"><i class="ri-file-text-line"></i> 原始文本 <button class="toggle-original-btn" id="toggle-original"><i class="ri-eye-line"></i> 展开</button></div>
+            <div class="report-original-text hidden" id="report-original-text"></div>
+            <div class="report-section-label"><i class="ri-edit-2-line"></i> 解析结果（可编辑）</div>
+            <textarea class="report-parsed-editor" id="report-parsed-editor" placeholder="编辑解析后的结构化内容..."></textarea>
+            <div class="report-parsed-tips"><div class="tip-item">💡 每行一条数据，系统会自动合并到策略中</div></div>
+        </div>
+        <div class="report-confirm-footer">
+            <button class="modal-btn cancel" id="report-confirm-cancel">取消</button>
+            <button class="modal-btn primary" id="report-confirm-submit"><i class="ri-check-line"></i> 确认上传</button>
+        </div>
+    </div>
+</div>
+
+<!-- 密码验证弹窗 -->
+<div class="modal hidden" id="password-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content password-panel">
+        <div class="password-header">
+            <div class="password-title"><i class="ri-lock-2-line"></i> 查看内部数据</div>
+            <button class="report-confirm-close" id="password-close"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="password-body">
+            <div class="password-hint"><i class="ri-shield-keyhole-line"></i> <span>内部项目数据需要验证权限，请输入查看密码</span></div>
+            <div class="form-group">
+                <input class="form-input password-field" id="password-input" type="password" placeholder="请输入密码">
+                <div class="password-error hidden" id="password-error"><i class="ri-error-warning-line"></i><span></span></div>
+            </div>
+        </div>
+        <div class="report-confirm-footer">
+            <button class="modal-btn cancel" id="password-cancel">取消</button>
+            <button class="modal-btn primary" id="password-submit"><i class="ri-lock-unlock-line"></i> 验证</button>
+        </div>
+    </div>
+</div>
+
+<!-- 文档管理密码验证弹窗 -->
+<div class="modal hidden" id="docs-password-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content docs-pwd-panel">
+        <div class="docs-pwd-header">
+            <button class="docs-pwd-close-btn" id="docs-pwd-close"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="docs-pwd-body">
+            <div class="docs-pwd-icon-wrap">
+                <div class="docs-pwd-icon-ring">
+                    <div class="docs-pwd-icon-inner">
+                        <i class="ri-folder-shield-2-line"></i>
+                    </div>
+                </div>
+                <div class="docs-pwd-particles">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+            <div class="docs-pwd-title">文档管理</div>
+            <div class="docs-pwd-subtitle">此区域包含敏感文档，需要验证身份后访问</div>
+            <div class="docs-pwd-input-group">
+                <div class="docs-pwd-input-wrap">
+                    <i class="ri-key-2-line"></i>
+                    <input class="docs-pwd-input-field" id="docs-pwd-input" type="password" placeholder="请输入访问密码" autocomplete="off">
+                    <button class="docs-pwd-toggle-vis" id="docs-pwd-toggle" type="button" title="显示/隐藏密码">
+                        <i class="ri-eye-off-line"></i>
+                    </button>
+                </div>
+                <div class="docs-pwd-error hidden" id="docs-pwd-error">
+                    <i class="ri-error-warning-line"></i><span></span>
+                </div>
+            </div>
+            <div class="docs-pwd-actions">
+                <button class="docs-pwd-cancel-btn" id="docs-pwd-cancel">取消</button>
+                <button class="docs-pwd-submit-btn" id="docs-pwd-submit">
+                    <i class="ri-lock-unlock-line"></i> 解锁文档
+                </button>
+            </div>
+            <div class="docs-pwd-footer-hint">
+                <i class="ri-shield-check-line"></i> 密码验证仅在当前会话有效
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 报告编辑弹窗 -->
+<div class="modal hidden" id="rd-edit-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content rd-edit-panel">
+        <div class="rd-edit-header">
+            <div class="rd-edit-title"><i class="ri-edit-2-line"></i> 编辑报告数据</div>
+            <button class="report-confirm-close" id="rd-edit-close"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="rd-edit-body">
+            <div class="form-group">
+                <label><i class="ri-gamepad-line"></i> 游戏名称</label>
+                <input class="form-input" id="rd-edit-game" placeholder="游戏名称">
+            </div>
+            <div class="form-group">
+                <label><i class="ri-calendar-line"></i> 日期</label>
+                <input class="form-input" id="rd-edit-date" placeholder="日期">
+            </div>
+            <div class="form-group">
+                <label><i class="ri-file-text-line"></i> 数据内容</label>
+                <textarea class="form-textarea rd-edit-textarea" id="rd-edit-content" rows="5" placeholder="每行一条数据"></textarea>
+            </div>
+        </div>
+        <div class="report-confirm-footer">
+            <button class="modal-btn cancel" id="rd-edit-cancel">取消</button>
+            <button class="modal-btn primary" id="rd-edit-submit"><i class="ri-check-line"></i> 保存</button>
+        </div>
+    </div>
+</div>
+
+<!-- 报告查看弹窗 -->
+<div class="modal hidden" id="report-viewer-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content report-viewer-panel">
+        <div class="report-viewer-header">
+            <div class="report-viewer-title"><i class="ri-file-chart-line"></i> <span id="rv-title">报告详情</span></div>
+            <button class="report-confirm-close" id="rv-close" style="color:white; background:rgba(255,255,255,0.2);"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="report-viewer-meta" id="rv-meta"></div>
+        <div class="report-viewer-body" id="rv-body">
+            <div class="report-viewer-loading">
+                <div class="spinner"></div>
+                <p>加载报告内容...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 关键点提炼弹窗 -->
+<div class="modal hidden" id="keypoints-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content keypoints-panel">
+        <div class="keypoints-header">
+            <div class="keypoints-title"><i class="ri-lightbulb-flash-line"></i> <span id="kp-title">文档关键点</span></div>
+            <button class="report-confirm-close" id="kp-close"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="keypoints-meta" id="kp-meta"></div>
+        <div class="keypoints-body" id="kp-body">
+            <div class="keypoints-loading">
+                <div class="spinner"></div>
+                <p>正在提炼关键点...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 原始文件查看弹窗 -->
+<div class="modal hidden" id="original-file-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content original-file-panel">
+        <div class="original-file-header">
+            <div class="original-file-title"><i class="ri-file-line"></i> <span id="of-title">原始文档</span></div>
+            <div class="original-file-actions">
+                <a class="of-download-btn" id="of-download" target="_blank" title="下载原始文件">
+                    <i class="ri-download-line"></i> 下载
+                </a>
+                <button class="report-confirm-close" id="of-close"><i class="ri-close-line"></i></button>
+            </div>
+        </div>
+        <div class="original-file-body" id="of-body">
+            <div class="original-file-loading">
+                <div class="spinner"></div>
+                <p>加载文档...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>window.__API_BASE = "/api";</script>
+<script type="module" src="/static/app.js?v=20260522b"></script>
+</body>
+</html>

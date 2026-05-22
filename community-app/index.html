@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>策略中心</title>
+  <link rel="stylesheet" href="style.css?v=20260520e" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== PC端左侧侧边栏 ===== -->
+  <aside class="sidebar-nav" id="sidebarNav">
+    <div class="sidebar-logo">
+      <div class="logo-icon"><i class="ri-layout-grid-line"></i></div>
+      <span class="logo-text">策略中心</span>
+    </div>
+    <div class="sidebar-nav-items">
+      <button class="sidebar-tab active" data-view="home">
+        <span class="nav-emoji">🏠</span><span>策略预览</span>
+      </button>
+      <button class="sidebar-tab" data-view="ask">
+        <span class="nav-emoji">💬</span><span>智能提问</span>
+      </button>
+      <button class="sidebar-tab" data-view="doc-upload">
+        <span class="nav-emoji">📤</span><span>上传文档</span>
+      </button>
+      <button class="sidebar-tab" data-view="doc-manage">
+        <span class="nav-emoji">📁</span><span>内部文档</span>
+      </button>
+      <button class="sidebar-tab" data-view="logs">
+        <span class="nav-emoji">🕐</span><span>更新日志</span>
+      </button>
+    </div>
+    <div class="sidebar-footer">
+      <a href="/" class="sidebar-home-btn">← 返回首页</a>
+    </div>
+  </aside>
+
+  <!-- ===== 移动端顶部导航 ===== -->
+  <header class="mobile-header" id="mobileHeader">
+    <button class="mobile-back-btn hidden" id="mobileBackBtn"><i class="ri-arrow-left-s-line"></i></button>
+    <span class="mobile-title" id="mobileTitle">策略中心</span>
+    <button class="mobile-action-btn" id="mobileRefreshBtn"><i class="ri-refresh-line"></i></button>
+  </header>
+
+  <!-- ===== 主内容区 ===== -->
+  <main class="main-content" id="mainContent">
+
+    <!-- ===== 首页 ===== -->
+    <div id="view-home" class="view active">
+      <div class="pc-topbar">
+        <span class="pc-breadcrumb">策略预览</span>
+        <button class="pc-refresh-btn" id="refreshHomeBtn"><i class="ri-refresh-line"></i> 刷新数据</button>
+      </div>
+      <div class="view-body">
+        <div class="section-header">
+          <span class="section-icon">🎮</span>
+          <span class="section-text">选择平台查看策略</span>
+        </div>
+        <div class="platform-grid" id="platformGrid"></div>
+        <div class="section-header">
+          <span class="section-icon">⚡</span>
+          <span class="section-text">快捷操作</span>
+        </div>
+        <div class="quick-actions" id="quickActions"></div>
+        <div class="section-header">
+          <span class="section-icon">🕐</span>
+          <span class="section-text">最近更新</span>
+        </div>
+        <div class="recent-list" id="recentList"></div>
+      </div>
+    </div>
+
+    <!-- ===== 平台详情页 ===== -->
+    <div id="view-platform" class="view">
+      <div class="pc-topbar">
+        <span class="pc-breadcrumb"><button class="breadcrumb-back" id="platformBackBtn"><i class="ri-arrow-left-s-line"></i></button> <span id="platformPageTitle">平台详情</span></span>
+        <button class="pc-refresh-btn" id="refreshPlatformBtn"><i class="ri-refresh-line"></i> 刷新</button>
+      </div>
+      <div class="view-body" id="platformDetailContent"></div>
+    </div>
+
+    <!-- ===== 策略详情页 ===== -->
+    <div id="view-detail" class="view">
+      <div class="pc-topbar">
+        <span class="pc-breadcrumb"><button class="breadcrumb-back" id="detailBackBtn"><i class="ri-arrow-left-s-line"></i></button> 策略详情</span>
+        <span></span>
+      </div>
+      <div class="view-body">
+        <div id="detailContent"></div>
+        <div class="detail-actions" id="detailActions">
+          <button class="action-btn edit-btn" id="editBtn"><span>✏️</span><span>编辑</span></button>
+          <button class="action-btn share-btn" id="shareBtn"><span>📤</span><span>分享</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 上传文档页 ===== -->
+    <div id="view-doc-upload" class="view">
+      <div class="pc-topbar">
+        <span class="pc-breadcrumb">上传文档</span>
+        <button class="pc-refresh-btn" id="docUploadRefreshBtn"><i class="ri-refresh-line"></i> 刷新</button>
+      </div>
+      <div id="docVisibilitySelector" class="doc-visibility-selector"></div>
+      <div class="doc-upload-tabs" id="docUploadTabs">
+        <div class="doc-tab active" data-mode="text" onclick="updateDocUploadTabs('text');renderDocUploadContent('text');"><i class="ri-file-text-line"></i><span>粘贴文本</span></div>
+        <div class="doc-tab" data-mode="file" onclick="updateDocUploadTabs('file');renderDocUploadContent('file');"><i class="ri-upload-cloud-line"></i><span>上传文件</span></div>
+      </div>
+      <div class="view-body">
+        <div class="doc-upload-body" id="docUploadBody"></div>
+      </div>
+    </div>
+
+    <!-- ===== 文档管理页 ===== -->
+    <div id="view-doc-manage" class="view">
+      <div class="pc-topbar">
+        <span class="pc-breadcrumb">内部项目文档</span>
+        <button class="pc-refresh-btn" id="docManageUploadBtn"><i class="ri-upload-cloud-line"></i> 上传</button>
+      </div>
+      <div class="view-body">
+        <div class="doc-manage-toolbar">
+          <div class="doc-search-bar">
+            <i class="ri-search-line"></i>
+            <input type="text" id="docSearchInput" placeholder="搜索内部文档名称、平台..." />
+            <button class="doc-search-clear hidden" id="docSearchClear"><i class="ri-close-line"></i></button>
+          </div>
+
+        </div>
+        <div class="doc-confidential-banner">
+          <i class="ri-shield-keyhole-line"></i>
+          <span>以下为内部项目文档，仅限团队内部查阅，请注意信息保密</span>
+        </div>
+        <div class="doc-stats-bar" id="docStatsBar"></div>
+        <div class="doc-list-container" id="docListContainer"></div>
+      </div>
+    </div>
+
+
+    <!-- ===== 录入信息页（编辑/新增策略）===== -->
+    <div id="view-upload" class="view">
+      <div class="pc-topbar">
+        <span class="pc-breadcrumb"><button class="breadcrumb-back" id="uploadBackBtn"><i class="ri-arrow-left-s-line"></i></button> <span id="uploadPageTitle">录入信息</span></span>
+        <span></span>
+      </div>
+      <div class="view-body">
+        <div id="uploadBody"></div>
+      </div>
+    </div>
+
+    <!-- ===== 更新日志 ===== -->
+    <div id="view-logs" class="view">
+      <div class="pc-topbar">
+        <span class="pc-breadcrumb">更新日志</span>
+        <button class="pc-refresh-btn" onclick="location.reload()"><i class="ri-refresh-line"></i> 刷新</button>
+      </div>
+      <div class="view-body">
+        <div id="logsContainer"></div>
+      </div>
+    </div>
+
+    <!-- ===== 智能提问 ===== -->
+    <div id="view-ask" class="view">
+      <div class="pc-topbar">
+        <span class="pc-breadcrumb">智能提问</span>
+      </div>
+      <div class="ask-container">
+        <div class="ask-hero" id="comm-ask-hero">
+          <div class="ask-hero-icon">🤖</div>
+          <div class="ask-hero-title">社区策略智能问答</div>
+          <div class="ask-hero-desc">基于全平台社区运营策略数据，为您智能检索和分析</div>
+        </div>
+        <div class="ask-quick-tags" id="comm-ask-quick-tags">
+          <span class="ask-tag" data-q="YouTube怎么提升频道曝光率？">YouTube曝光提升</span>
+          <span class="ask-tag" data-q="Twitch直播推广有哪些策略？">Twitch直播推广</span>
+          <span class="ask-tag" data-q="Discord社群运营技巧有哪些？">Discord社群运营</span>
+          <span class="ask-tag" data-q="Reddit广告投放注意事项？">Reddit广告投放</span>
+          <span class="ask-tag" data-q="各平台KOL合作策略对比">KOL合作策略</span>
+          <span class="ask-tag" data-q="社区推广预算如何分配？">预算分配建议</span>
+        </div>
+        <div class="ask-chat-area" id="comm-ask-chat-area"></div>
+        <div class="ask-input-bar">
+          <div class="ask-input-wrapper">
+            <input class="ask-input-field" id="comm-ask-input" placeholder="输入问题，如：YouTube推广有哪些策略？" maxlength="200">
+            <button class="ask-send-btn" id="comm-ask-send" title="发送">
+              <i class="ri-send-plane-fill"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== 报告解析确认弹窗 ===== -->
+  <div id="parseModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-icon">📋</span>
+        <span class="modal-title">报告解析确认</span>
+        <button class="modal-close" id="modalCloseBtn">&times;</button>
+      </div>
+      <div class="modal-hint">
+        <span class="hint-icon">💡</span>
+        <span>系统已自动提炼关键数据，请确认或编辑后提交。每行一条关键信息。</span>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-header" id="toggleOriginal">
+          <span class="modal-section-icon">📄</span>
+          <span>原始内容预览</span>
+          <span class="toggle-arrow" id="toggleArrow">▾ 展开</span>
+        </div>
+        <div id="originalContent" class="original-content hidden"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-header">
+          <span class="modal-section-icon">✏️</span>
+          <span>提炼内容</span>
+          <span class="edit-hint">（可直接编辑）</span>
+        </div>
+        <textarea id="refinedContent" class="refined-textarea" placeholder="每行一条关键数据或结论..."></textarea>
+        <div class="format-hint"><span>💡</span><span>格式示例：6月10日愿望单增长16499，为平时的2倍</span></div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn cancel" id="modalCancelBtn">取消</button>
+        <button class="modal-btn confirm" id="modalConfirmBtn"><span>✓</span> 确认提交</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Toast -->
+  <div id="toast" class="toast-msg hidden"><span id="toastText"></span></div>
+
+  <!-- Loading -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loading-box">
+      <div class="loading-spinner"></div>
+      <span id="loadingText">加载中...</span>
+    </div>
+  </div>
+
+  <script type="module" src="main.js?v=20260520e"></script>
+</body>
+</html>
