@@ -1,11 +1,11 @@
-# Goglobalgames — Overseas Game Operations Dashboard
+# Game Ops Dashboard — Overseas Game Operations Dashboard
 
 A full-stack internal operations platform for overseas game publishing teams.
 
 ## 📦 Project Structure
 
 ```
-goglobalgames-public/
+game-ops-dashboard/
 ├── homepage/              # Main navigation page
 │   └── index.html
 ├── platform-app/          # Strategy Center (Platform)
